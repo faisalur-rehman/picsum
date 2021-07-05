@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-
+import NavbarComponent from "./components/Navbar";
 const images = [
   {
     original: "https://picsum.photos/id/1018/1000/600/",
@@ -43,6 +43,7 @@ class App extends React.Component {
   render() {
     return (
       <section className="app">
+        <NavbarComponent />
         <ImageGallery
           items={images}
           lazyLoad={false}
@@ -66,6 +67,7 @@ class App extends React.Component {
           additionalClass="app-image-gallery"
           useWindowKeyDown={this.state.useWindowKeyDown}
         />
+        <NavbarComponent footer={true} />
       </section>
     );
   }
