@@ -1,48 +1,12 @@
-import "./App.css";
 import React from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import NavbarComponent from "./components/Navbar";
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1020/1000/600/",
-    thumbnail: "https://picsum.photos/id/1020/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1021/1000/600/",
-    thumbnail: "https://picsum.photos/id/1021/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1022/1000/600/",
-    thumbnail: "https://picsum.photos/id/1022/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1023/1000/600/",
-    thumbnail: "https://picsum.photos/id/1023/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1024/1000/600/",
-    thumbnail: "https://picsum.photos/id/1024/250/150/",
-  },
-];
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      showIndex: false,
       showBullets: true,
       infinite: true,
       showThumbnails: true,
@@ -51,16 +15,30 @@ class App extends React.Component {
       showPlayButton: true,
       showGalleryPlayButton: true,
       showNav: true,
-      isRTL: false,
       slideDuration: 450,
       slideInterval: 2000,
       slideOnThumbnailOver: true,
       thumbnailPosition: "bottom",
-      showVideo: {},
-      useWindowKeyDown: true,
+      images: [],
     };
   }
+  componentDidMount(prevProp) {
+    console.log("prev", prevProp);
+    for (let i = 0; i < 10; i++) {
+      this.setState((prev) => ({
+        images: [
+          ...prev.images,
+          {
+            original: `https://picsum.photos/id/${1019 + i}/1000/600/`,
+            thumbnail: `https://picsum.photos/id/${1019 + i}/250/150/`,
+          },
+        ],
+      }));
+    }
+  }
   render() {
+    console.log(this.state.images);
+    const { images } = this.state;
     return (
       <section className="app">
         <NavbarComponent />
@@ -77,15 +55,10 @@ class App extends React.Component {
             this.state.showPlayButton && this.state.showGalleryPlayButton
           }
           showThumbnails={this.state.showThumbnails}
-          showIndex={this.state.showIndex}
-          showNav={this.state.showNav}
-          isRTL={this.state.isRTL}
           thumbnailPosition={this.state.thumbnailPosition}
           slideDuration={parseInt(this.state.slideDuration)}
           slideInterval={parseInt(this.state.slideInterval)}
           slideOnThumbnailOver={this.state.slideOnThumbnailOver}
-          additionalClass="app-image-gallery"
-          useWindowKeyDown={this.state.useWindowKeyDown}
         />
         <NavbarComponent footer={true} />
       </section>
